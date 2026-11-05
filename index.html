@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#7f1d1d"><title>Arun Vastralaya — Mahona Market</title>
+<style>
+:root{--m:#7f1d1d;--r:#b91c1c;--g:#d9a441;--bg:#fff8ee;--tx:#2a1a14;--mu:#7a6a60;--ln:#eadfce;--wa:#16a34a}
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
+body{font-family:system-ui,-apple-system,"Segoe UI","Noto Sans Devanagari",sans-serif;background:var(--bg);color:var(--tx);padding-bottom:84px}
+button,input,textarea,select{font:inherit;color:inherit}a{color:inherit;text-decoration:none}
+.w{max-width:1100px;margin:0 auto;padding:0 14px}
+#offer{background:var(--g);color:#3b1d05;text-align:center;font-weight:700;font-size:13px;padding:7px 10px}
+header{position:sticky;top:0;z-index:20;background:var(--m);color:#fff;padding-top:env(safe-area-inset-top)}
+header .w{display:flex;justify-content:space-between;align-items:center;gap:10px;padding-top:10px;padding-bottom:10px}
+h1{font-size:19px;line-height:1.1}.sub{font-size:11.5px;opacity:.88;margin-top:3px}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;background:#4ade80}
+.ib{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:#ffffff22;font-size:18px;border:0;cursor:pointer;position:relative}
+.cnt{position:absolute;top:-4px;right:-4px;background:var(--g);color:#3b1d05;font-size:11px;font-weight:800;border-radius:99px;min-width:18px;height:18px;display:grid;place-items:center;padding:0 4px}
+.hero{background:linear-gradient(135deg,var(--m),var(--r) 60%,#e0912f);color:#fff;border-radius:20px;margin-top:14px;padding:22px 18px}
+.hero h2{font-size:26px;line-height:1.15}.hero p{margin-top:8px;font-size:14px;opacity:.93;max-width:460px}
+.btn{border:0;border-radius:12px;padding:12px 16px;font-weight:800;font-size:14px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px}
+.wa{background:var(--wa);color:#fff}.gd{background:var(--g);color:#3b1d05}.ol{background:#fff;border:1px solid var(--ln)}
+.trust{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:12px}
+@media(min-width:700px){.trust{grid-template-columns:repeat(4,1fr)}}
+.trust div{background:#fff;border:1px solid var(--ln);border-radius:14px;padding:10px;font-size:12.5px;font-weight:700}
+.trust small{display:block;color:var(--mu);font-weight:500;margin-top:2px}
+.fl{display:flex;gap:8px;margin-top:16px}
+.fl input,.fl select{background:#fff;border:1px solid var(--ln);border-radius:12px;padding:11px 12px;font-size:14px}.fl input{flex:1;min-width:0}
+.pills{display:flex;gap:8px;overflow-x:auto;padding:10px 0 4px;scrollbar-width:none}.pills::-webkit-scrollbar{display:none}
+.pill{flex:none;padding:8px 16px;border-radius:99px;border:1px solid var(--ln);background:#fff;font-weight:700;font-size:13px;cursor:pointer}
+.pill.on{background:var(--m);color:#fff;border-color:var(--m)}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:10px}
+@media(min-width:700px){.grid{grid-template-columns:repeat(3,1fr);gap:14px}}@media(min-width:1000px){.grid{grid-template-columns:repeat(4,1fr)}}
+.card{background:#fff;border:1px solid var(--ln);border-radius:16px;overflow:hidden;cursor:pointer}
+.vw{position:relative}.v{width:100%;aspect-ratio:1;object-fit:cover;display:grid;place-items:center;background-image:linear-gradient(160deg,#ffffff40,#00000040);font-size:64px}
+.of{position:absolute;top:8px;left:8px;background:var(--r);color:#fff;font-size:11px;padding:3px 8px;border-radius:99px}
+.tg{position:absolute;bottom:8px;left:8px;background:#000a;color:#fff;font-size:10.5px;font-style:normal;padding:3px 8px;border-radius:99px;font-weight:700}
+.so{position:absolute;inset:0;background:#fffc;display:grid;place-items:center;font-weight:900;color:var(--r);letter-spacing:2px}
+.ci{padding:10px}.ci h3{font-size:14px;line-height:1.25;min-height:35px}
+.pr{display:flex;gap:7px;align-items:baseline;margin-top:5px}.pr b{font-size:17px}.pr s{font-size:12px;color:var(--mu)}
+.sz{display:flex;flex-wrap:wrap;gap:4px;margin-top:7px}.sz span{font-size:10.5px;border:1px solid var(--ln);border-radius:6px;padding:1px 6px;color:var(--mu)}
+.sec{margin-top:26px;background:#fff;border:1px solid var(--ln);border-radius:18px;padding:16px}
+.ov{position:fixed;inset:0;background:#000a;z-index:50;display:none;align-items:flex-end;justify-content:center}.ov.on{display:flex}
+.sheet{background:#fff;width:100%;max-width:520px;max-height:92vh;border-radius:20px 20px 0 0;display:flex;flex-direction:column;overflow:hidden;position:relative}
+@media(min-width:700px){.ov{align-items:center}.sheet{border-radius:20px}}
+.sb{overflow:auto;flex:1}.sf{padding:12px;border-top:1px solid var(--ln);display:grid;gap:8px;grid-template-columns:1fr 1fr;padding-bottom:max(12px,env(safe-area-inset-bottom))}
+.x{position:absolute;top:10px;right:10px;z-index:2;width:34px;height:34px;border-radius:50%;border:0;background:#fffe;font-size:16px;cursor:pointer}
+.mv .v{aspect-ratio:1.2;font-size:90px}.mi{padding:14px}.mi h2{font-size:21px}.mu{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--r);font-weight:800}
+.big b{font-size:26px}.ds{font-size:13.5px;color:var(--mu);margin-top:10px;line-height:1.5}.lb{font-size:12px;font-weight:800;margin:14px 0 6px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}.chip{padding:8px 14px;border-radius:10px;border:1.5px solid var(--ln);background:#fff;font-weight:700;cursor:pointer}.chip.on{border-color:var(--m);background:var(--m);color:#fff}
+.ci2{display:flex;gap:10px;align-items:center;padding:10px 14px;border-bottom:1px solid var(--ln)}.ci2 .v{width:56px;height:56px;aspect-ratio:1;border-radius:10px;font-size:26px;flex:none}
+.q{display:flex;align-items:center;gap:8px}.q button{width:28px;height:28px;border-radius:8px;border:1px solid var(--ln);background:#fff;font-weight:800;cursor:pointer}
+.f{padding:14px;display:grid;gap:8px}.f input,.f textarea,.f select{width:100%;border:1px solid var(--ln);border-radius:10px;padding:10px;font-size:14px}
+.nav{position:fixed;bottom:0;left:0;right:0;z-index:40;background:#fff;border-top:1px solid var(--ln);display:grid;grid-template-columns:1fr 1.2fr 1.6fr;gap:8px;padding:10px 12px max(10px,env(safe-area-inset-bottom))}
+@media(min-width:700px){.nav{display:none}body{padding-bottom:20px}}
+#toast{position:fixed;left:50%;bottom:92px;transform:translateX(-50%);background:#2a1a14;color:#fff;padding:10px 18px;border-radius:99px;font-size:14px;opacity:0;pointer-events:none;transition:.3s;z-index:90}#toast.on{opacity:1}
+.mu2{color:var(--mu);font-size:13px}
+</style></head><body>
+<div id="offer"></div>
+<header><div class="w"><div style="min-width:0"><h1 id="nm"></h1><div class="sub"><span class="dot" id="od"></span><span id="ot"></span> • <span id="sa"></span></div></div>
+<div style="display:flex;gap:8px"><a class="ib" id="hc">📞</a><button class="ib" onclick="openC()">🛒<span class="cnt" id="cc">0</span></button></div></div></header>
+<main class="w">
+<section class="hero"><h2 id="ht"></h2><p id="hp"></p><div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap"><a href="#shop" class="btn gd">👗 View Collection</a><a id="hw" target="_blank" class="btn wa">Chat on WhatsApp</a></div></section>
+<section class="trust"><div>🏷️ Direct Shop Price<small>No middleman cost</small></div><div>📏 Wrong Size? Exchange It<small>Easy exchange at the shop</small></div><div>🛵 Home Delivery<small id="dl"></small></div><div>💬 WhatsApp Order<small>Fill the cart, send in one tap</small></div></section>
+<section id="shop" style="scroll-margin-top:70px"><div class="fl"><input id="q" type="search" placeholder="Saree, kurta, jeans, shirt…"><select id="so"><option value="f">Featured</option><option value="l">Price: Low to High</option><option value="h">Price: High to Low</option><option value="o">Biggest Discount</option></select></div>
+<div class="pills" id="pl"></div><div class="grid" id="g"></div><p id="em" class="mu2" style="display:none;text-align:center;padding:30px 0">Nothing found. <a id="rq" target="_blank" style="color:var(--r);font-weight:800">Ask us on WhatsApp →</a></p></section>
+<section class="sec"><p class="mu">📍 Our Shop</p><h2 id="sn" style="margin-top:4px"></h2><p class="mu2" id="ad" style="margin-top:6px"></p><p class="mu2" id="hr" style="margin-top:4px"></p><a id="mp" target="_blank" class="btn ol" style="margin-top:12px">🧭 Get Directions</a></section>
+<p class="mu2" style="text-align:center;margin-top:22px;font-size:12px" id="ft"></p>
+</main>
+<div class="nav"><a id="nc" class="btn ol">📞 Call</a><button class="btn gd" onclick="openC()">🛒 Cart (<span id="nn">0</span>)</button><a id="nw" target="_blank" class="btn wa">WhatsApp</a></div>
+<div class="ov" id="m" onclick="if(event.target===this)closeAll()"><div class="sheet"><button class="x" onclick="closeAll()">✕</button><div class="sb" id="mb"></div><div class="sf" id="mf"></div></div></div>
+<div class="ov" id="c" onclick="if(event.target===this)closeAll()"><div class="sheet"><button class="x" onclick="closeAll()">✕</button><div class="sb" id="cb"></div><div class="sf" id="cf" style="grid-template-columns:1fr"></div></div></div>
+<div id="toast"></div>
+<script id="td-data">window.TD_DATA={"STORE":{"name":"Arun Vastralaya","en":"Arun Vastralaya","whatsapp":"919838211528","phone":"+919838211528","short":"Mahona Market","address":"Mahona Market, near Sadab Bhai Book Depot","openHour":10,"closeHour":21,"hours":"Open daily, 10 AM to 9 PM","delivery":"Free around Mahona","offer":"💍 Wedding Season Offer: ₹200 off on purchases above ₹2000 — order on WhatsApp!","hero":"Weddings or festivals — clothes for the whole family, under one roof","heroSub":"Sarees, kurtas, suits, jeans, kids' wear and winter clothing. Pick your favourites, choose a size, and send your order on WhatsApp."},"CATS":["Saree","Men","Women","Kids","Winter"],"P":[
+{"id":1,"cat":"Saree","name":"Banarasi Silk Saree","price":1899,"mrp":2999,"sizes":["Free Size"],"color":"#9f1239","emoji":"🥻","stock":true,"tag":"Wedding Special","desc":"Banarasi-style silk saree with zari border. Blouse piece included."},
+{"id":2,"cat":"Saree","name":"Cotton Printed Saree","price":649,"mrp":999,"sizes":["Free Size"],"color":"#0f766e","emoji":"🥻","stock":true,"tag":"Daily Wear","desc":"Light, comfortable cotton. Best for everyday wear."},
+{"id":3,"cat":"Men","name":"Men Cotton Shirt","price":599,"mrp":999,"sizes":["M","L","XL","XXL"],"color":"#1d4ed8","emoji":"👔","stock":true,"tag":"Best Seller","desc":"Soft cotton, regular fit. Great for office and family functions."},
+{"id":4,"cat":"Men","name":"Kurta Pajama Set","price":1299,"mrp":1999,"sizes":["M","L","XL","XXL"],"color":"#92400e","emoji":"👘","stock":true,"tag":"Festive","desc":"For weddings and festivals. Kurta and pajama in one set."},
+{"id":5,"cat":"Men","name":"Stretch Denim Jeans","price":899,"mrp":1499,"sizes":["30","32","34","36"],"color":"#1e3a8a","emoji":"👖","stock":true,"tag":"","desc":"Comfortable stretch denim, slim fit."},
+{"id":6,"cat":"Women","name":"Anarkali Suit Set","price":1499,"mrp":2499,"sizes":["S","M","L","XL"],"color":"#be185d","emoji":"👗","stock":true,"tag":"New","desc":"Complete set with dupatta. Stunning for functions."},
+{"id":7,"cat":"Women","name":"Cotton Kurti","price":499,"mrp":799,"sizes":["S","M","L","XL","XXL"],"color":"#7c3aed","emoji":"👚","stock":true,"tag":"Hot Deal","desc":"Printed kurti for daily wear, colour-fast."},
+{"id":8,"cat":"Women","name":"Leggings (Pack of 2)","price":299,"mrp":498,"sizes":["Free Size"],"color":"#334155","emoji":"🩱","stock":false,"tag":"","desc":"Stretchable, great fit."},
+{"id":9,"cat":"Kids","name":"Girls Party Frock","price":699,"mrp":1099,"sizes":["2-3Y","4-5Y","6-7Y","8-9Y"],"color":"#db2777","emoji":"👗","stock":true,"tag":"Cute","desc":"Net and satin frock, comfortable for kids."},
+{"id":10,"cat":"Kids","name":"Boys Kurta Set","price":799,"mrp":1199,"sizes":["2-3Y","4-5Y","6-7Y","8-9Y"],"color":"#ca8a04","emoji":"👘","stock":true,"tag":"Festive","desc":"Kurta-pajama for festivals and weddings."},
+{"id":11,"cat":"Winter","name":"Men Zipper Jacket","price":1199,"mrp":1999,"sizes":["M","L","XL","XXL"],"color":"#1f2937","emoji":"🧥","stock":true,"tag":"Winter Special","desc":"Warm fleece lining, two pockets, sturdy zipper."},
+{"id":12,"cat":"Winter","name":"Woolen Shawl","price":549,"mrp":899,"sizes":["Free Size"],"color":"#b45309","emoji":"🧣","stock":true,"tag":"Winter Special","desc":"Soft and warm shawl, for both women and men."}
+]};</script>
+<script>
+const $=s=>document.querySelector(s),inr=n=>'₹'+Number(n||0).toLocaleString('en-IN'),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let D=window.TD_DATA;try{const l=JSON.parse(localStorage.getItem('av_data_en')||'null');if(l&&l.P)D=l}catch(e){}
+const S=D.STORE,P=D.P,CATS=['All',...D.CATS],st={cat:'All',q:'',sort:'f'},cu={n:'',a:'',d:'pick'};
+let cart=[],cur=null,sel='';try{cart=JSON.parse(localStorage.getItem('av_cart')||'[]').filter(c=>P.some(p=>p.id===c.id))}catch(e){}
+const save=()=>{try{localStorage.setItem('av_cart',JSON.stringify(cart))}catch(e){}cnt()};
+const wa=m=>`https://wa.me/${S.whatsapp}?text=${encodeURIComponent(m)}`,off=p=>p.mrp>p.price?Math.round((p.mrp-p.price)/p.mrp*100):0;
+const vis=p=>p.photo?`<img class="v" src="${p.photo}" alt="${esc(p.name)}" loading="lazy">`:`<div class="v" style="background-color:${esc(p.color)}"><span>${esc(p.emoji)}</span></div>`;
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('on'),1800)}
+function init(){document.title=S.name+' — '+S.short;$('#nm').textContent=S.name;$('#sa').textContent=S.short;$('#ht').textContent=S.hero;$('#hp').textContent=S.heroSub;
+$('#hc').href=$('#nc').href='tel:'+S.phone;$('#hw').href=$('#nw').href=wa(`Hello ${S.name}! I would like to know more about your collection.`);
+$('#dl').textContent=S.delivery;$('#sn').textContent=S.name;$('#ad').textContent=S.address;$('#hr').textContent='🕙 '+S.hours;
+$('#mp').href='https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(S.name+' '+S.address);$('#ft').textContent=S.name+' • Prices and stock may change';
+if(S.offer){$('#offer').textContent=S.offer}else $('#offer').style.display='none';
+const h=new Date().getHours(),o=h>=S.openHour&&h<S.closeHour;$('#ot').textContent=o?'Open Now':'Closed';$('#od').style.background=o?'#4ade80':'#fbbf24';
+pills();grid();cnt()}
+function pills(){$('#pl').innerHTML=CATS.map(c=>`<button class="pill ${c===st.cat?'on':''}" onclick="st.cat='${esc(c)}';pills();grid()">${esc(c)}</button>`).join('')}
+function list(){let l=P.filter(p=>(st.cat==='All'||p.cat===st.cat)&&(!st.q||(p.name+' '+p.cat+' '+(p.tag||'')).toLowerCase().includes(st.q)));
+if(st.sort==='l')l.sort((a,b)=>a.price-b.price);else if(st.sort==='h')l.sort((a,b)=>b.price-a.price);else if(st.sort==='o')l.sort((a,b)=>off(b)-off(a));else l.sort((a,b)=>b.stock-a.stock);return l}
+function grid(){const l=list();$('#g').innerHTML=l.map(p=>`<article class="card" onclick="openP(${p.id})"><div class="vw">${vis(p)}${off(p)?`<b class="of">${off(p)}% OFF</b>`:''}${p.tag?`<i class="tg">${esc(p.tag)}</i>`:''}${p.stock?'':'<div class="so">SOLD OUT</div>'}</div><div class="ci"><h3>${esc(p.name)}</h3><div class="pr"><b>${inr(p.price)}</b>${off(p)?`<s>${inr(p.mrp)}</s>`:''}</div><div class="sz">${p.sizes.map(s=>`<span>${esc(s)}</span>`).join('')}</div></div></article>`).join('');
+$('#em').style.display=l.length?'none':'block';$('#rq').href=wa(`Hello ${S.name}! I am looking for: ${st.q||st.cat}. Is it available?`)}
+$('#q').oninput=e=>{st.q=e.target.value.trim().toLowerCase();grid()};$('#so').onchange=e=>{st.sort=e.target.value;grid()};
+function openP(id){cur=P.find(p=>p.id===id);sel=cur.sizes[0];drawP();$('#m').classList.add('on');document.body.style.overflow='hidden'}
+function drawP(){const p=cur,msg=`Hello ${S.name}! I am interested in:\n*${p.name}*\nSize: ${sel}\nPrice: ${inr(p.price)}\nIs it available?`;
+$('#mb').innerHTML=`<div class="mv">${vis(p)}</div><div class="mi"><p class="mu">${esc(p.cat)}</p><h2>${esc(p.name)}</h2><div class="pr big"><b>${inr(p.price)}</b>${off(p)?`<s>${inr(p.mrp)}</s><b style="font-size:13px;color:var(--wa)">You save ${inr(p.mrp-p.price)}</b>`:''}</div><p class="ds">${esc(p.desc||'')}</p><p class="lb">Select size</p><div class="chips">${p.sizes.map((s,i)=>`<button class="chip ${s===sel?'on':''}" onclick="sel=cur.sizes[${i}];drawP()">${esc(s)}</button>`).join('')}</div></div>`;
+$('#mf').innerHTML=p.stock?`<button class="btn gd" onclick="add()">🛒 Add to Cart</button><a class="btn wa" target="_blank" href="${wa(msg)}">Order on WhatsApp</a>`:`<a class="btn ol" style="grid-column:1/-1" target="_blank" href="${wa(`Hello! ${p.name} shows as sold out. Please let me know when it is back in stock.`)}">🔔 Notify me when available</a>`}
+function add(){const c=cart.find(x=>x.id===cur.id&&x.size===sel);c?c.q++:cart.push({id:cur.id,size:sel,q:1});save();closeAll();toast('Added to cart ✓')}
+function closeAll(){$('#m').classList.remove('on');$('#c').classList.remove('on');document.body.style.overflow=''}
+const tot=()=>cart.reduce((a,c)=>{const p=P.find(x=>x.id===c.id);return a+p.price*c.q},0),cnt=()=>{const n=cart.reduce((a,c)=>a+c.q,0);$('#cc').textContent=$('#nn').textContent=n};
+function openC(){drawC();$('#c').classList.add('on');document.body.style.overflow='hidden'}
+function qty(i,d){cart[i].q+=d;if(cart[i].q<1)cart.splice(i,1);save();drawC()}
+function drawC(){if(!cart.length){$('#cb').innerHTML='<p class="mu2" style="padding:50px 20px;text-align:center">Your cart is empty.<br>Add something you like 🛍️</p>';$('#cf').innerHTML='';return}
+$('#cb').innerHTML='<h2 style="padding:14px 50px 6px 14px;font-size:18px">🛒 Your Cart</h2>'+cart.map((c,i)=>{const p=P.find(x=>x.id===c.id);return`<div class="ci2">${vis(p)}<div style="flex:1;min-width:0"><b style="font-size:14px">${esc(p.name)}</b><div class="mu2" style="font-size:12px">Size ${esc(c.size)} • ${inr(p.price)}</div></div><div class="q"><button onclick="qty(${i},-1)">−</button><b>${c.q}</b><button onclick="qty(${i},1)">+</button></div></div>`}).join('')+
+`<div class="f"><input placeholder="Your name" value="${esc(cu.n)}" oninput="cu.n=this.value"><select onchange="cu.d=this.value;drawC()"><option value="pick" ${cu.d==='pick'?'selected':''}>Pick up from shop</option><option value="home" ${cu.d==='home'?'selected':''}>Home delivery</option></select>${cu.d==='home'?`<textarea rows="2" placeholder="Full address" oninput="cu.a=this.value">${esc(cu.a)}</textarea>`:''}</div>`;
+$('#cf').innerHTML=`<div style="display:flex;justify-content:space-between;font-weight:800"><span>Total</span><span style="font-size:20px">${inr(tot())}</span></div><button class="btn wa" onclick="send()">Send Order on WhatsApp</button>`}
+function send(){const L=cart.map((c,i)=>{const p=P.find(x=>x.id===c.id);return`${i+1}. ${p.name} (Size ${c.size}) x${c.q} = ${inr(p.price*c.q)}`});
+const m=`Hello ${S.name}! 🙏\nI would like to place this order:\n\n${L.join('\n')}\n\n*Total: ${inr(tot())}*\nName: ${cu.n||'-'}\n${cu.d==='home'?'Home delivery: '+(cu.a||'-'):'Pick up from shop'}`;
+window.open(wa(m),'_blank')}
+init();
+</script></body></html>
