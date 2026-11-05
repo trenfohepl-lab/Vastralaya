@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="hi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><title>अरुण वस्त्रालय — Admin</title>
+<style>
+:root{--m:#7f1d1d;--g:#d9a441;--bg:#fff8ee;--tx:#2a1a14;--mu:#7a6a60;--ln:#eadfce}
+*{box-sizing:border-box;margin:0}body{font-family:system-ui,-apple-system,"Segoe UI","Noto Sans Devanagari",sans-serif;background:var(--bg);color:var(--tx)}
+button,input,select,textarea{font:inherit;color:inherit}.hide{display:none!important}.w{max-width:860px;margin:0 auto;padding:14px}
+header{position:sticky;top:0;z-index:20;background:var(--m);color:#fff;padding-top:env(safe-area-inset-top)}header .w{display:flex;justify-content:space-between;align-items:center;padding-bottom:6px}
+h1{font-size:17px}.tabs{display:flex;gap:6px;max-width:860px;margin:0 auto;padding:0 14px 10px;overflow-x:auto}
+.tab{flex:none;padding:8px 14px;border-radius:99px;border:0;background:#ffffff22;color:#fff;font-weight:700;font-size:13px;cursor:pointer}.tab.on{background:var(--g);color:#3b1d05}
+.card{background:#fff;border:1px solid var(--ln);border-radius:14px;padding:12px;margin-bottom:10px}
+.btn{border:0;border-radius:10px;padding:10px 14px;font-weight:700;font-size:14px;cursor:pointer;background:#f3e8d8;text-decoration:none;display:inline-block}.pri{background:var(--m);color:#fff}.red{background:#fee2e2;color:#b91c1c}.sm{padding:6px 10px;font-size:12px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.bt{justify-content:space-between}
+input,select,textarea{width:100%;background:#fffdf8;border:1px solid var(--ln);border-radius:10px;padding:10px;font-size:14px}input[type=checkbox]{width:auto}input[type=color]{padding:2px;height:40px}
+label{display:block;font-size:12px;color:var(--mu);font-weight:600;margin-bottom:3px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.full{grid-column:1/-1}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:10px}@media(min-width:600px){.stats{grid-template-columns:repeat(4,1fr)}}
+.stat{background:#fff;border:1px solid var(--ln);border-radius:12px;padding:10px}.stat b{font-size:20px;display:block}.stat small,.note{color:var(--mu);font-size:12px;line-height:1.5}
+.bd{font-size:10px;font-weight:800;padding:2px 8px;border-radius:99px;margin-left:6px}.in{background:#dcfce7;color:#166534}.out{background:#fee2e2;color:#b91c1c}
+.th{width:44px;height:44px;border-radius:10px;object-fit:cover;display:inline-grid;place-items:center;font-size:22px;vertical-align:middle;margin-right:8px}
+#md{position:fixed;inset:0;background:#0008;z-index:50;display:flex;align-items:flex-end;justify-content:center}#md .bx{background:#fff;width:100%;max-width:680px;max-height:92vh;overflow:auto;padding:16px;border-radius:18px 18px 0 0}
+@media(min-width:700px){#md{align-items:center}#md .bx{border-radius:18px}}
+#t{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#2a1a14;color:#fff;padding:10px 18px;border-radius:99px;opacity:0;transition:.3s;pointer-events:none;z-index:90}#t.on{opacity:1}
+.lg{min-height:100vh;display:grid;place-items:center;padding:20px}.lg .card{width:100%;max-width:340px}
+</style></head><body>
+<div id="lg" class="lg"><div class="card"><h1 style="margin-bottom:4px">अरुण वस्त्रालय Admin</h1><p class="note" style="margin-bottom:12px">Dukaan ka control panel. Password daalein.</p><input id="pw" type="password" placeholder="Password"><button class="btn pri" style="width:100%;margin-top:10px" onclick="login()">Login</button><p class="note" style="margin-top:10px">Pehli baar ka password: <b>admin123</b> (Dukaan tab me badal lein)</p></div></div>
+<div id="app" class="hide"><header><div class="w"><h1>अरुण वस्त्रालय <span style="opacity:.7;font-weight:400">Admin</span></h1><div class="row"><a class="btn sm" href="index.html" target="_blank">Website ↗</a><button class="btn sm" onclick="logout()">Logout</button></div></div><div class="tabs" id="tabs"></div></header><main class="w" id="main"></main></div>
+<div id="md" class="hide" onclick="if(event.target===this)cm()"><div class="bx" id="bx"></div></div><div id="t"></div>
+<script>
+const KEY='av_data',PW='av_pw',$=s=>document.querySelector(s),inr=n=>'₹'+Number(n||0).toLocaleString('en-IN'),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let DB=null,tab='p',q='',ph='';
+const tt=m=>{const t=$('#t');t.textContent=m;t.classList.add('on');clearTimeout(tt.x);tt.x=setTimeout(()=>t.classList.remove('on'),1800)};
+function save(m){try{localStorage.setItem(KEY,JSON.stringify(DB));tt(m||'Save ho gaya ✓')}catch(e){tt('Storage full — photo chhoti/kam karein')}}
+const parseIdx=t=>{const m=t.match(/<script id="td-data">window\.TD_DATA=([\s\S]*?);<\/script>/);if(!m)throw 0;return JSON.parse(m[1])};
+async function boot(){try{const l=JSON.parse(localStorage.getItem(KEY)||'null');if(l&&l.P){DB=l;return}}catch(e){}
+try{DB=parseIdx(await(await fetch('index.html',{cache:'no-store'})).text())}catch(e){}}
+const getPw=()=>{try{return localStorage.getItem(PW)||'admin123'}catch(e){return'admin123'}};
+async function login(){if($('#pw').value!==getPw())return tt('Galat password');try{sessionStorage.setItem('av_in','1')}catch(e){}await start()}
+function logout(){try{sessionStorage.removeItem('av_in')}catch(e){}location.reload()}
+$('#pw').onkeydown=e=>{if(e.key==='Enter')login()};
+async function start(){await boot();$('#lg').classList.add('hide');$('#app').classList.remove('hide');render()}
+try{if(sessionStorage.getItem('av_in')==='1')start()}catch(e){}
+const TABS=[['p','👗 Products'],['s','🏪 Dukaan'],['u','🚀 Publish / Backup']];
+function render(){$('#tabs').innerHTML=TABS.map(([k,l])=>`<button class="tab ${tab===k?'on':''}" onclick="tab='${k}';render()">${l}</button>`).join('');
+$('#main').innerHTML=!DB?`<div class="card"><b>Data load nahi hua</b><p class="note" style="margin:6px 0">Website ki <b>index.html</b> file yahan chunein (ya admin ko index.html ke saath same folder/domain par kholein).</p><input type="file" accept=".html" onchange="loadIdx(this.files[0])"></div>`:({p:vP,s:vS,u:vU})[tab]()}
+async function loadIdx(f){if(!f)return;try{DB=parseIdx(await f.text());save('Data load ho gaya');render()}catch(e){tt('Ye index.html sahi nahi hai')}}
+/* PRODUCTS */
+function vP(){const P=DB.P,n=P.filter(p=>p.stock).length;return`<div class="stats"><div class="stat"><b>${P.length}</b><small>Total items</small></div><div class="stat"><b style="color:#166534">${n}</b><small>In stock</small></div><div class="stat"><b style="color:#b91c1c">${P.length-n}</b><small>Sold out</small></div><div class="stat"><b>${DB.CATS.length}</b><small>Categories</small></div></div>
+<div class="row" style="margin-bottom:10px"><input style="flex:1 1 150px;width:auto" placeholder="Search…" value="${esc(q)}" oninput="q=this.value;$('#pl').innerHTML=pl()"><button class="btn pri" onclick="edit()">+ Naya Item</button></div><div id="pl">${pl()}</div>`}
+function pl(){const l=DB.P.filter(p=>(p.name+' '+p.cat).toLowerCase().includes(q.toLowerCase()));if(!l.length)return'<div class="card note">Kuch nahi mila.</div>';
+return l.map(p=>`<div class="card row bt"><div style="flex:1 1 200px;min-width:0"><b>${p.photo?`<img class="th" src="${p.photo}">`:`<span class="th" style="background:${esc(p.color)}">${esc(p.emoji)}</span>`}${esc(p.name)}</b><span class="bd ${p.stock?'in':'out'}">${p.stock?'IN STOCK':'SOLD OUT'}</span><div class="note">${esc(p.cat)} • ${inr(p.price)} <s>${inr(p.mrp)}</s> • ${esc(p.sizes.join(', '))}</div></div>
+<div class="row"><button class="btn sm" onclick="tg(${p.id})">${p.stock?'Sold out karo':'Stock me lao'}</button><button class="btn sm" onclick="edit(${p.id})">Edit</button><button class="btn sm" onclick="dup(${p.id})">Copy</button><button class="btn sm red" onclick="del(${p.id})">Delete</button></div></div>`).join('')}
+const nid=()=>Math.max(0,...DB.P.map(p=>p.id))+1,fp=id=>DB.P.find(p=>p.id===id);
+function tg(id){const p=fp(id);p.stock=!p.stock;save(p.stock?'Stock me aa gaya':'Sold out ho gaya');render()}
+function dup(id){const c=structuredClone(fp(id));c.id=nid();c.name+=' (copy)';DB.P.push(c);save('Copy ban gayi');render()}
+function del(id){if(confirm(`"${fp(id).name}" delete karna hai?`)){DB.P=DB.P.filter(p=>p.id!==id);save('Delete ho gaya');render()}}
+const cm=()=>$('#md').classList.add('hide');
+function edit(id){const p=id?fp(id):{cat:DB.CATS[0],name:'',price:0,mrp:0,sizes:['S','M','L','XL'],color:'#9f1239',emoji:'👕',stock:true,tag:'',desc:''};ph=p.photo||'';
+const f=(l,k,v,t='text')=>`<div><label>${l}</label><input id="f_${k}" type="${t}" value="${esc(v)}"></div>`;
+$('#bx').innerHTML=`<div class="row bt" style="margin-bottom:10px"><h1>${id?'Item Edit':'Naya Item'}</h1><button class="btn sm" onclick="cm()">✕</button></div><div class="grid">
+<div class="full">${f('Naam (e.g. Cotton Kurti)','name',p.name)}</div>
+<div><label>Category</label><select id="f_cat">${DB.CATS.map(c=>`<option ${c===p.cat?'selected':''}>${esc(c)}</option>`).join('')}</select></div>${f('Tag (Hot Deal, New…)','tag',p.tag)}
+${f('Selling price ₹','price',p.price,'number')}${f('MRP ₹ (kat ke dikhane wala)','mrp',p.mrp,'number')}
+<div class="full">${f('Sizes (comma se alag) — S,M,L ya 30,32,34','sizes',p.sizes.join(','))}</div>
+<div class="full">${f('Chhota description','desc',p.desc)}</div>
+<div><label>Rang (photo na ho to)</label><input id="f_color" type="color" value="${esc(p.color)}"></div>${f('Emoji (photo na ho to)','emoji',p.emoji)}
+<div class="full"><label>📷 Photo (optional — apne-aap chhoti ho jaati hai)</label><div id="phb" class="row" style="margin-bottom:6px"></div><input type="file" accept="image/*" onchange="addPh(this.files[0])"></div>
+<div style="display:flex;align-items:center;gap:8px"><input type="checkbox" id="f_stock" ${p.stock?'checked':''}> In stock</div></div>
+<div class="row" style="margin-top:14px;justify-content:flex-end"><button class="btn" onclick="cm()">Cancel</button><button class="btn pri" onclick="sp(${id||0})">Save</button></div>`;
+rph();$('#md').classList.remove('hide')}
+function rph(){$('#phb').innerHTML=ph?`<img src="${ph}" style="width:80px;height:80px;object-fit:cover;border-radius:10px"><button class="btn sm red" onclick="ph='';rph()">Hatao</button>`:'<span class="note">Abhi photo nahi</span>'}
+function addPh(file){if(!file)return;const i=new Image(),u=URL.createObjectURL(file);i.onload=()=>{const k=Math.min(1,700/Math.max(i.width,i.height)),c=document.createElement('canvas');c.width=i.width*k;c.height=i.height*k;c.getContext('2d').drawImage(i,0,0,c.width,c.height);ph=c.toDataURL('image/jpeg',.72);URL.revokeObjectURL(u);rph()};i.onerror=()=>tt('Photo padh nahi paaye');i.src=u}
+function sp(id){const g=k=>$('#f_'+k).value.trim(),n=k=>Number(g(k))||0;if(!g('name'))return tt('Naam zaroori hai');if(n('price')<=0)return tt('Price daalein');
+const sizes=g('sizes').split(',').map(s=>s.trim()).filter(Boolean),o={id:id||nid(),cat:g('cat'),name:g('name'),price:n('price'),mrp:n('mrp')||n('price'),sizes:sizes.length?sizes:['Free Size'],color:g('color'),emoji:g('emoji')||'👕',stock:$('#f_stock').checked,tag:g('tag'),desc:g('desc')};
+if(ph)o.photo=ph;if(id)DB.P[DB.P.findIndex(x=>x.id===id)]=o;else DB.P.push(o);cm();save(id?'Update ho gaya':'Item add ho gaya');render()}
+/* DUKAAN */
+function vS(){const s=DB.STORE,f=(l,k,t='text',full)=>`<div class="${full?'full':''}"><label>${l}</label><input id="s_${k}" type="${t}" value="${esc(s[k])}"></div>`;
+return`<div class="card"><div class="grid">${f('Dukaan ka naam','name','text',1)}${f('WhatsApp (91 ke saath, + ke bina)','whatsapp')}${f('Phone (+91…)','phone')}${f('Short jagah (header)','short')}${f('Free delivery kahan tak','delivery')}${f('Poora pata','address','text',1)}${f('Khulne ka hour (0-23)','openHour','number')}${f('Band hone ka hour (0-23)','closeHour','number')}${f('Timing text','hours','text',1)}
+<div class="full"><label>Offer banner (khali = band)</label><textarea id="s_offer" rows="2">${esc(s.offer)}</textarea></div>${f('Hero heading','hero','text',1)}<div class="full"><label>Hero chhota text</label><textarea id="s_heroSub" rows="2">${esc(s.heroSub)}</textarea></div>
+<div class="full"><label>Categories (comma se alag, jaisa website me dikhana hai)</label><input id="s_cats" value="${esc(DB.CATS.join(', '))}"><p class="note">Naya naam rakhne se purane items ki category alag ho sakti hai — item edit me category badal lein.</p></div></div>
+<div class="row" style="margin-top:12px;justify-content:flex-end"><button class="btn pri" onclick="ss()">Save Dukaan Details</button></div></div>
+<div class="card"><b>Password badlo</b><div class="grid" style="margin-top:8px"><div><label>Naya password</label><input id="np" type="password"></div><div><label>Dobara</label><input id="np2" type="password"></div></div><button class="btn pri" style="margin-top:10px" onclick="cp()">Update</button><p class="note" style="margin-top:8px">Ye basic lock hai, asli security nahi. admin.html ka link kisi ko share na karein.</p></div>`}
+function ss(){const s=DB.STORE;['name','phone','short','delivery','address','hours','offer','hero','heroSub'].forEach(k=>s[k]=$('#s_'+k).value.trim());s.whatsapp=$('#s_whatsapp').value.replace(/\D/g,'');
+s.openHour=Number($('#s_openHour').value)||10;s.closeHour=Number($('#s_closeHour').value)||21;const c=$('#s_cats').value.split(',').map(x=>x.trim()).filter(Boolean);if(c.length)DB.CATS=[...new Set(c)];save('Dukaan details save ho gayi')}
+function cp(){const a=$('#np').value;if(a.length<4)return tt('Kam se kam 4 akshar');if(a!==$('#np2').value)return tt('Dono alag hain');try{localStorage.setItem(PW,a);tt('Password badal gaya')}catch(e){tt('Save nahi hua')}}
+/* PUBLISH */
+function vU(){return`<div class="card" style="background:#fffbeb;border-color:#fcd34d"><b>Zaroori</b><p class="note">Yahan ke changes sirf is browser me dikhte hain. Customers ko dikhane ke liye neeche se <b>updated index.html</b> download karke hosting (Vercel) par dobara upload karein.</p></div>
+<div class="card"><b>1. Updated website file</b><p class="note" style="margin:6px 0">Aapke saare items, photos aur dukaan details us file me daal deta hai.</p><button class="btn pri" onclick="build()">⬇ Download updated index.html</button><p class="note" style="margin-top:10px">Na chale to apni index.html yahan chunein:</p><input type="file" accept=".html" onchange="buildF(this.files[0])"></div>
+<div class="card"><b>2. Backup / Restore</b><div class="row" style="margin-top:8px"><button class="btn" onclick="dl('arun-vastralaya-backup.json',JSON.stringify(DB,null,2),'application/json')">⬇ Backup (.json)</button><label class="btn" style="margin:0;cursor:pointer">⬆ Restore<input type="file" accept=".json" class="hide" onchange="imp(this.files[0])"></label></div></div>
+<div class="card"><b>3. Reset</b><p class="note" style="margin:6px 0">Saara data original demo par wapas.</p><button class="btn red" onclick="rs()">Original par wapas jao</button></div>`}
+function dl(n,t,y){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([t],{type:y}));a.download=n;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
+function mk(h){if(!/<script id="td-data">[\s\S]*?<\/script>/.test(h)){tt('Ye index.html sahi nahi lagti');return null}
+const j=JSON.stringify({STORE:DB.STORE,CATS:DB.CATS,P:DB.P}).replace(/</g,'\\u003c');return h.replace(/<script id="td-data">[\s\S]*?<\/script>/,()=>`<script id="td-data">window.TD_DATA=${j};<\/script>`)}
+async function build(){try{const r=await fetch('index.html',{cache:'no-store'});if(!r.ok)throw 0;const o=mk(await r.text());if(o){dl('index.html',o,'text/html');tt('index.html ready')}}catch(e){tt('Auto-load nahi hua — neeche se file chunein')}}
+async function buildF(f){if(!f)return;const o=mk(await f.text());if(o){dl('index.html',o,'text/html');tt('index.html ready')}}
+function imp(f){if(!f)return;f.text().then(t=>{try{const d=JSON.parse(t);if(!d.STORE||!Array.isArray(d.P))throw 0;DB=d;save('Restore ho gaya');render()}catch(e){tt('File sahi nahi hai')}})}
+async function rs(){if(!confirm('Saare changes hat jayenge. Pakka?'))return;try{localStorage.removeItem(KEY)}catch(e){}DB=null;await boot();render();tt('Reset ho gaya')}
+</script></body></html>
